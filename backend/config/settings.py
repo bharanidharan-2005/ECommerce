@@ -200,3 +200,11 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 if db_from_env:
     DATABASES['default'].update(db_from_env)
+
+
+# Render deployment configuration
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+CORS_ALLOW_ALL_ORIGINS = True
