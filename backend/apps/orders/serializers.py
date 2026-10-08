@@ -1,4 +1,4 @@
-from rest_framework import serializers
+﻿from rest_framework import serializers
 
 from apps.products.models import Product
 
@@ -31,6 +31,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     promo_code_str = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
 
+    promo_code = serializers.StringRelatedField(read_only=True)
+    discount_amount = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+
     class Meta:
         model = Order
         fields = (
@@ -38,9 +41,9 @@ class OrderSerializer(serializers.ModelSerializer):
             "full_name", "email", "address_line_1", "address_line_2",
             "city", "state", "postal_code", "country",
             "total_price", "item_count", "is_paid", "paid_at",
-            "payment_method", "currency", "created_at", "promo_code_str"
+            "payment_method", "currency", "created_at", "promo_code_str", "promo_code", "discount_amount"
         )
-        read_only_fields = ("id", "order_number", "total_price", "is_paid", "paid_at")
+        read_only_fields = ("id", "order_number", "total_price", "is_paid", "paid_at", "promo_code", "discount_amount")
 
     def create(self, validated_data):
         from apps.orders.models import PromoCode
@@ -69,14 +72,25 @@ class OrderSerializer(serializers.ModelSerializer):
             try:
                 promo = PromoCode.objects.get(code__iexact=promo_code_str, active=True)
                 if promo.valid_from and promo.valid_from > timezone.now():
-                    pass
+                    raise serializers.ValidationError({"promo_code_str": "This offer is currently unavailable."})
                 elif promo.valid_until and promo.valid_until < timezone.now():
-                    pass
+                    raise serializers.ValidationError({"promo_code_str": "This coupon has expired."})
                 else:
+                    # Also check if it's their welcome coupon and if they already used it
+                    from apps.accounts.models import NewsletterSubscriber
+                    user = self.context['request'].user
+                    if user and user.is_authenticated:
+                        subscriber = NewsletterSubscriber.objects.filter(email=user.email).first()
+                        if subscriber and promo.code.upper() == subscriber.welcome_coupon.upper():
+                            if subscriber.coupon_used:
+                                raise serializers.ValidationError({"promo_code_str": "This coupon has already been used."})
+                            if subscriber.coupon_expires_at and subscriber.coupon_expires_at < timezone.now():
+                                raise serializers.ValidationError({"promo_code_str": "Your welcome discount has expired."})
+                    
                     promo_code_obj = promo
                     discount_amount = total * (promo.discount_percentage / 100)
             except PromoCode.DoesNotExist:
-                pass
+                raise serializers.ValidationError({"promo_code_str": "Invalid promo code."})
                 
         # Apply discount
         total = total - discount_amount
@@ -89,6 +103,16 @@ class OrderSerializer(serializers.ModelSerializer):
             promo_code=promo_code_obj,
             discount_amount=discount_amount
         )
+        
+        # Mark welcome coupon as used if applicable
+        if promo_code_obj:
+            user = self.context['request'].user
+            if user and user.is_authenticated:
+                from apps.accounts.models import NewsletterSubscriber
+                subscriber = NewsletterSubscriber.objects.filter(email=user.email).first()
+                if subscriber and promo_code_obj.code.upper() == subscriber.welcome_coupon.upper():
+                    subscriber.coupon_used = True
+                    subscriber.save(update_fields=['coupon_used'])
         for product, quantity, price in order_items:
             OrderItem.objects.create(
                 order=order,
@@ -107,6 +131,7 @@ class MyOrderSerializer(serializers.ModelSerializer):
     """Order list serializer for the user's own history (read-only)."""
 
     items = OrderItemSerializer(many=True, read_only=True)
+    promo_code = serializers.CharField(source='promo_code.code', read_only=True)
 
     class Meta:
         model = Order
@@ -115,4 +140,6 @@ class MyOrderSerializer(serializers.ModelSerializer):
             "is_paid", "created_at", "full_name", "email",
             "address_line_1", "address_line_2", "city", "state",
             "postal_code", "country", "payment_method",
+            "promo_code", "discount_amount"
         )
+

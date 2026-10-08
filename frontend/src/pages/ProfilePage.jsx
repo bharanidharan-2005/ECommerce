@@ -456,8 +456,14 @@ const OrderDetails = ({ order, onBack, onCancel, userCurrency, rates }) => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-slate-300">
                   <span>Subtotal</span>
-                  <span>{formatPrice(Number(order.total_price), userCurrency, rates)}</span>
+                  <span>{formatPrice(Number(order.total_price) + Number(order.discount_amount || 0), userCurrency, rates)}</span>
                 </div>
+                {Number(order.discount_amount) > 0 && (
+                  <div className="flex justify-between text-emerald-400">
+                    <span>Discount {order.promo_code ? () : ''}</span>
+                    <span>-{formatPrice(Number(order.discount_amount), userCurrency, rates)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-slate-300">
                   <span>Shipping</span>
                   <span>Free</span>

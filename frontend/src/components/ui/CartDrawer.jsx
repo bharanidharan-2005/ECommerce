@@ -67,10 +67,8 @@ export default function CartDrawer() {
     navigate("/checkout");
   };
 
-  const shippingCost = total >= FREE_SHIPPING_AT_INR ? 0 : 99; // Standard shipping
-  const tax = total * 0.05; // 5% tax example
   const discount = coupon ? (total * coupon.discount_percentage) / 100 : 0;
-  const finalTotal = total + shippingCost + tax - discount;
+  const finalTotal = total - discount;
   
   const shippingProgress = Math.min((total / FREE_SHIPPING_AT_INR) * 100, 100);
 
