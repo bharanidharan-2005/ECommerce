@@ -1,0 +1,118 @@
+content = '''import { useEffect, useState } from "react";
+import api from "../../api";
+import PageTransition from "../../components/PageTransition";
+import { format } from "date-fns";
+import { toast } from "react-hot-toast";
+
+export default function AdminOrders() {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = () => {
+    api.get("/orders/admin/")
+      .then((res) => {
+        setOrders(res.data.results || res.data); // handles paginated or list view
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  };
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      await api.patch(\/orders/admin/\/\, { status: newStatus });
+      toast.success("Order status updated!");
+      setOrders((prev) => 
+        prev.map(o => o.id === orderId ? { ...o, status: newStatus } : o)
+      );
+    } catch (err) {
+      toast.error("Failed to update status");
+      console.error(err);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="h-24 animate-pulse rounded-2xl bg-slate-800/50" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <PageTransition>
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-slate-100">Orders Management</h1>
+        
+        <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-400">
+              <thead className="bg-slate-800/50 text-xs uppercase text-slate-300">
+                <tr>
+                  <th className="px-6 py-4 font-semibold">Order ID</th>
+                  <th className="px-6 py-4 font-semibold">Date</th>
+                  <th className="px-6 py-4 font-semibold">Total</th>
+                  <th className="px-6 py-4 font-semibold">Payment</th>
+                  <th className="px-6 py-4 font-semibold">Status</th>
+                  <th className="px-6 py-4 font-semibold text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800">
+                {orders.map((order) => (
+                  <tr key={order.id} className="hover:bg-slate-800/30">
+                    <td className="px-6 py-4 font-medium text-slate-200">
+                      #{order.order_number || order.id}
+                    </td>
+                    <td className="px-6 py-4">
+                      {format(new Date(order.created_at), "MMM d, yyyy")}
+                    </td>
+                    <td className="px-6 py-4">
+                      \
+                    </td>
+                    <td className="px-6 py-4">
+                      {order.is_paid ? (
+                        <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-400">Paid</span>
+                      ) : (
+                        <span className="rounded-full bg-rose-500/10 px-2 py-1 text-xs font-medium text-rose-400">Unpaid</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      <select
+                        value={order.status}
+                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                        className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-sm text-slate-200 outline-none focus:border-indigo-500"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="placed">Placed</option>
+                        <option value="paid">Paid</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                      </select>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                    </td>
+                  </tr>
+                ))}
+                {orders.length === 0 && (
+                  <tr>
+                    <td colSpan="6" className="px-6 py-8 text-center text-slate-500">
+                      No orders found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </PageTransition>
+  );
+}
+'''
+with open('src/pages/admin/AdminOrders.jsx', 'w') as f:
+    f.write(content)

@@ -1,0 +1,401 @@
+[
+  {
+    "id": 9,
+    "name": "Noise-Canceling Earbuds",
+    "category": "Electronics",
+    "price": 149.99,
+    "description": "Compact true wireless earbuds with active noise cancellation.",
+    "image_url": "https://loremflickr.com/600/600/earbuds,tech/all"
+  },
+  {
+    "id": 10,
+    "name": "4K Action Camera",
+    "category": "Electronics",
+    "price": 299.00,
+    "description": "Rugged, waterproof action camera shooting in 4K at 60fps.",
+    "image_url": "https://loremflickr.com/600/600/actioncamera/all"
+  },
+  {
+    "id": 11,
+    "name": "Ultra-Wide Gaming Monitor",
+    "category": "Electronics",
+    "price": 499.50,
+    "description": "34-inch curved ultra-wide monitor with 144Hz refresh rate.",
+    "image_url": "https://loremflickr.com/600/600/monitor,screen/all"
+  },
+  {
+    "id": 12,
+    "name": "Ergonomic Office Chair",
+    "category": "Home",
+    "price": 189.00,
+    "description": "Breathable mesh back office chair with lumbar support.",
+    "image_url": "https://loremflickr.com/600/600/officechair/all"
+  },
+  {
+    "id": 13,
+    "name": "Minimalist Desk Lamp",
+    "category": "Home",
+    "price": 45.99,
+    "description": "LED desk lamp with adjustable color temperature and brightness.",
+    "image_url": "https://loremflickr.com/600/600/desklamp/all"
+  },
+  {
+    "id": 14,
+    "name": "Stainless Steel Water Bottle",
+    "category": "Sports",
+    "price": 29.95,
+    "description": "Vacuum-insulated 32oz bottle keeps drinks cold for 24 hours.",
+    "image_url": "https://loremflickr.com/600/600/waterbottle/all"
+  },
+  {
+    "id": 15,
+    "name": "Canvas Weekend Duffel",
+    "category": "Fashion",
+    "price": 85.00,
+    "description": "Durable canvas travel bag with leather accents.",
+    "image_url": "https://loremflickr.com/600/600/duffelbag/all"
+  },
+  {
+    "id": 16,
+    "name": "Polarized Aviator Sunglasses",
+    "category": "Accessories",
+    "price": 120.00,
+    "description": "Classic metal frame aviators with polarized UV400 lenses.",
+    "image_url": "https://loremflickr.com/600/600/sunglasses/all"
+  },
+  {
+    "id": 17,
+    "name": "Smart Home Hub",
+    "category": "Electronics",
+    "price": 99.99,
+    "description": "Voice-controlled smart speaker and central home automation hub.",
+    "image_url": "https://loremflickr.com/600/600/smartspeaker/all"
+  },
+  {
+    "id": 18,
+    "name": "Leather Wallet",
+    "category": "Accessories",
+    "price": 45.00,
+    "description": "Slim genuine leather bifold wallet with RFID blocking.",
+    "image_url": "https://loremflickr.com/600/600/leatherwallet/all"
+  },
+  {
+    "id": 19,
+    "name": "Mechanical Pencil Set",
+    "category": "Accessories",
+    "price": 18.50,
+    "description": "Drafting pencil set with metal grip and extra lead.",
+    "image_url": "https://loremflickr.com/600/600/pencil/all"
+  },
+  {
+    "id": 20,
+    "name": "Cast Iron Skillet",
+    "category": "Home",
+    "price": 35.00,
+    "description": "Pre-seasoned 12-inch cast iron skillet for everyday cooking.",
+    "image_url": "https://loremflickr.com/600/600/skillet,pan/all"
+  },
+  {
+    "id": 21,
+    "name": "Adjustable Dumbbell Set",
+    "category": "Sports",
+    "price": 199.00,
+    "description": "Space-saving dumbbells adjustable from 5 to 50 lbs.",
+    "image_url": "https://loremflickr.com/600/600/dumbbell/all"
+  },
+  {
+    "id": 22,
+    "name": "Cotton Crewneck Sweater",
+    "category": "Fashion",
+    "price": 55.00,
+    "description": "Soft, 100% organic cotton pullover sweater.",
+    "image_url": "https://loremflickr.com/600/600/sweater/all"
+  },
+  {
+    "id": 23,
+    "name": "Drone with 4K Camera",
+    "category": "Electronics",
+    "price": 450.00,
+    "description": "Foldable quadcopter with 3-axis gimbal and 4K video.",
+    "image_url": "https://loremflickr.com/600/600/drone/all"
+  },
+  {
+    "id": 24,
+    "name": "Bicycle Helmet",
+    "category": "Sports",
+    "price": 65.00,
+    "description": "Aerodynamic and lightweight helmet with superior ventilation.",
+    "image_url": "https://loremflickr.com/600/600/helmet/all"
+  },
+  {
+    "id": 25,
+    "name": "French Press Coffee Maker",
+    "category": "Home",
+    "price": 28.00,
+    "description": "1-liter glass french press with stainless steel filter.",
+    "image_url": "https://loremflickr.com/600/600/frenchpress/all"
+  },
+  {
+    "id": 26,
+    "name": "Wireless Charging Pad",
+    "category": "Electronics",
+    "price": 22.99,
+    "description": "Fast-charging Qi-certified wireless charging stand.",
+    "image_url": "https://loremflickr.com/600/600/wirelesscharger/all"
+  },
+  {
+    "id": 27,
+    "name": "Graphic T-Shirt",
+    "category": "Fashion",
+    "price": 24.00,
+    "description": "Vintage wash cotton t-shirt with retro print.",
+    "image_url": "https://loremflickr.com/600/600/tshirt/all"
+  },
+  {
+    "id": 28,
+    "name": "Hiking Backpack",
+    "category": "Sports",
+    "price": 115.00,
+    "description": "45L water-resistant backpack with internal frame.",
+    "image_url": "https://loremflickr.com/600/600/backpack,hiking/all"
+  },
+  {
+    "id": 29,
+    "name": "Espresso Machine",
+    "category": "Home",
+    "price": 320.00,
+    "description": "Semi-automatic espresso maker with milk frother.",
+    "image_url": "https://loremflickr.com/600/600/espressomachine/all"
+  },
+  {
+    "id": 30,
+    "name": "Leather Dress Shoes",
+    "category": "Fashion",
+    "price": 145.00,
+    "description": "Classic Oxford style dress shoes in genuine brown leather.",
+    "image_url": "https://loremflickr.com/600/600/oxfordshoes/all"
+  },
+  {
+    "id": 31,
+    "name": "Smart Thermostat",
+    "category": "Electronics",
+    "price": 199.00,
+    "description": "Wi-Fi enabled thermostat that learns your scheduling.",
+    "image_url": "https://loremflickr.com/600/600/thermostat/all"
+  },
+  {
+    "id": 32,
+    "name": "Resistance Band Set",
+    "category": "Sports",
+    "price": 22.50,
+    "description": "Set of 5 heavy-duty resistance bands with handles and door anchor.",
+    "image_url": "https://loremflickr.com/600/600/resistancebands/all"
+  },
+  {
+    "id": 33,
+    "name": "Linen Bed Sheets",
+    "category": "Home",
+    "price": 130.00,
+    "description": "Queen size 100% stonewashed linen sheet set.",
+    "image_url": "https://loremflickr.com/600/600/bedsheets/all"
+  },
+  {
+    "id": 34,
+    "name": "Portable SSD 1TB",
+    "category": "Electronics",
+    "price": 110.00,
+    "description": "Rugged external solid state drive with USB-C connection.",
+    "image_url": "https://loremflickr.com/600/600/harddrive/all"
+  },
+  {
+    "id": 35,
+    "name": "Winter Parka Coat",
+    "category": "Fashion",
+    "price": 185.00,
+    "description": "Insulated waterproof parka with faux-fur lined hood.",
+    "image_url": "https://loremflickr.com/600/600/parka,coat/all"
+  },
+  {
+    "id": 36,
+    "name": "Tennis Racket",
+    "category": "Sports",
+    "price": 150.00,
+    "description": "Professional lightweight graphite tennis racket.",
+    "image_url": "https://loremflickr.com/600/600/tennisracket/all"
+  },
+  {
+    "id": 37,
+    "name": "Aromatherapy Diffuser",
+    "category": "Home",
+    "price": 34.00,
+    "description": "Ultrasonic essential oil diffuser with ambient LED lighting.",
+    "image_url": "https://loremflickr.com/600/600/diffuser/all"
+  },
+  {
+    "id": 38,
+    "name": "Mechanical Wristwatch",
+    "category": "Accessories",
+    "price": 275.00,
+    "description": "Automatic movement dive watch with stainless steel band.",
+    "image_url": "https://loremflickr.com/600/600/wristwatch/all"
+  },
+  {
+    "id": 39,
+    "name": "Podcast Microphone",
+    "category": "Electronics",
+    "price": 129.00,
+    "description": "USB condenser microphone for streaming and recording.",
+    "image_url": "https://loremflickr.com/600/600/microphone/all"
+  },
+  {
+    "id": 40,
+    "name": "Knitted Beanie",
+    "category": "Fashion",
+    "price": 18.00,
+    "description": "Warm, chunky knit winter beanie hat.",
+    "image_url": "https://loremflickr.com/600/600/beanie/all"
+  },
+  {
+    "id": 41,
+    "name": "Camping Tent",
+    "category": "Sports",
+    "price": 160.00,
+    "description": "Waterproof 4-person dome tent for outdoor camping.",
+    "image_url": "https://loremflickr.com/600/600/tent,camping/all"
+  },
+  {
+    "id": 42,
+    "name": "Chef's Knife",
+    "category": "Home",
+    "price": 85.00,
+    "description": "8-inch high-carbon stainless steel professional kitchen knife.",
+    "image_url": "https://loremflickr.com/600/600/chefknife/all"
+  },
+  {
+    "id": 43,
+    "name": "Bluetooth Tracker Tag",
+    "category": "Electronics",
+    "price": 29.99,
+    "description": "Small tracking device to keep tabs on keys and bags.",
+    "image_url": "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=800&q=80"
+  },
+  {
+    "id": 44,
+    "name": "Gold Plated Necklace",
+    "category": "Accessories",
+    "price": 55.00,
+    "description": "Minimalist 18k gold plated chain with small pendant.",
+    "image_url": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=800&q=80"
+  },
+  {
+    "id": 45,
+    "name": "Yoga Block Set",
+    "category": "Sports",
+    "price": 16.50,
+    "description": "Set of two high-density EVA foam yoga blocks.",
+    "image_url": "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=800&q=80"
+  },
+  {
+    "id": 46,
+    "name": "Fleece Throw Blanket",
+    "category": "Home",
+    "price": 28.00,
+    "description": "Super soft microfleece blanket for couches and beds.",
+    "image_url": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=800&q=80"
+  },
+  {
+    "id": 47,
+    "name": "E-Reader",
+    "category": "Electronics",
+    "price": 139.99,
+    "description": "Glare-free digital reader with adjustable warm light.",
+    "image_url": "https://images.unsplash.com/photo-1506303708522-7eadee164aeb?w=800&q=80"
+  },
+  {
+    "id": 48,
+    "name": "Leather Belt",
+    "category": "Fashion",
+    "price": 35.00,
+    "description": "Full-grain leather belt with classic brass buckle.",
+    "image_url": "https://images.unsplash.com/photo-1551698559 not needed anymore,
+  {
+    "id": 49,
+    "name": "Stand Up Paddleboard",
+    "category": "Sports",
+    "price": 320.00,
+    "description": "Inflatable paddleboard set with pump and adjustable paddle.",
+    "image_url": "https://loremflickr.com/600/600/paddleboard/all"
+  },
+  {
+    "id": 50,
+    "name": "Ceramic Plant Pot",
+    "category": "Home",
+    "price": 22.00,
+    "description": "Minimalist indoor planter pot with drainage hole.",
+    "image_url": "https://loremflickr.com/600/600/plantpot/all"
+  },
+  {
+    "id": 51,
+    "name": "Gaming Mouse",
+    "category": "Electronics",
+    "price": 59.99,
+    "description": "Wired gaming mouse with adjustable DPI and RGB lighting.",
+    "image_url": "https://loremflickr.com/600/600/gamingmouse/all"
+  },
+  {
+    "id": 52,
+    "name": "Silver Hoop Earrings",
+    "category": "Accessories",
+    "price": 42.00,
+    "description": "Sterling silver medium-sized hoop earrings.",
+    "image_url": "https://loremflickr.com/600/600/earrings/all"
+  },
+  {
+    "id": 53,
+    "name": "Jump Rope",
+    "category": "Sports",
+    "price": 14.99,
+    "description": "Speed jump rope with adjustable cable and ball bearings.",
+    "image_url": "https://loremflickr.com/600/600/jumprope/all"
+  },
+  {
+    "id": 54,
+    "name": "Bamboo Cutting Board",
+    "category": "Home",
+    "price": 24.50,
+    "description": "Large, durable bamboo wood cutting block for kitchen prep.",
+    "image_url": "https://loremflickr.com/600/600/cuttingboard/all"
+  },
+  {
+    "id": 55,
+    "name": "Tablet Stand",
+    "category": "Electronics",
+    "price": 19.99,
+    "description": "Adjustable aluminum desktop stand for tablets and phones.",
+    "image_url": "https://loremflickr.com/600/600/tabletstand/all"
+  },
+  {
+    "id": 56,
+    "name": "Sneaker Cleaning Kit",
+    "category": "Fashion",
+    "price": 25.00,
+    "description": "Complete shoe care kit with brush, solution, and microfiber cloth.",
+    "image_url": "https://loremflickr.com/600/600/sneakers/all"
+  },
+  {
+    "id": 57,
+    "name": "Foam Roller",
+    "category": "Sports",
+    "price": 20.00,
+    "description": "High-density foam roller for muscle massage and recovery.",
+    "image_url": "https://loremflickr.com/600/600/foamroller/all"
+  },
+  {
+    "id": 58,
+    "name": "Satin Pillowcase Set",
+    "category": "Home",
+    "price": 15.00,
+    "description": "Two standard size satin pillowcases for hair and skin care.",
+    "image_url": "https://loremflickr.com/600/600/pillowcase/all"
+  }
+]
