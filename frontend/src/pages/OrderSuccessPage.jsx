@@ -1,5 +1,5 @@
-/**
- * OrderSuccessPage — confirmation screen whose copy adapts to how the
+﻿/**
+ * OrderSuccessPage â€” confirmation screen whose copy adapts to how the
  * shopper paid:
  *   ?method=cod        -> "keep cash ready at delivery" (order stays pending)
  *   ?method=upi_*      -> UPI collect request sent; status flips to paid
@@ -22,7 +22,7 @@ export default function OrderSuccessPage() {
       title: "Order placed!",
       detail: (
         <>
-          Keep cash ready — you'll pay the courier the invoice amount on delivery.
+          Keep cash ready â€” you'll pay the courier the invoice amount on delivery.
           You can track the order anytime below.
         </>
       ),
@@ -32,7 +32,7 @@ export default function OrderSuccessPage() {
       detail: (
         <>
           We've sent a collect request to your <b className="text-slate-100">Google Pay</b>.
-          Approve it within 5 minutes — your order status flips to “paid” automatically.
+          Approve it within 5 minutes â€” your order status flips to â€œpaidâ€ automatically.
         </>
       ),
     },
@@ -63,7 +63,7 @@ export default function OrderSuccessPage() {
   const deliveryDateEnd = new Date();
   deliveryDateEnd.setDate(deliveryDateEnd.getDate() + 7);
   const options = { weekday: 'short', month: 'short', day: 'numeric' };
-  const estDelivery = ${deliveryDateStart.toLocaleDateString(undefined, options)} - ;
+  const estDelivery = `${deliveryDateStart.toLocaleDateString(undefined, options)} - ${deliveryDateEnd.toLocaleDateString(undefined, options)}`;
 
   return (
     <PageTransition>
@@ -100,7 +100,7 @@ export default function OrderSuccessPage() {
             {method === "card" && <>Your payment went through and order </>}
             {method !== "card" && <>Order </>}
             <span className="font-extrabold text-slate-100">#{orderNumber}</span>{" "}
-            is confirmed{method === "card" ? "." : " — awaiting your action."}
+            is confirmed{method === "card" ? "." : " â€” awaiting your action."}
           </p>
           <p className="mt-2 text-sm text-slate-500">{copy.detail}</p>
           

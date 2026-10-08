@@ -516,7 +516,7 @@ const OrderDetails = ({ order, onBack, onCancel, userCurrency, rates }) => {
                 </div>
                 {Number(order.discount_amount) > 0 && (
                   <div className="flex justify-between text-emerald-400">
-                    <span>Discount {order.promo_code ? () : ''}</span>
+                      <span>Discount {order.promo_code ? `(${order.promo_code})` : ''}</span>
                     <span>-{formatPrice(Number(order.discount_amount), userCurrency, rates)}</span>
                   </div>
                 )}
@@ -754,5 +754,7 @@ export default function ProfilePage() {
     </PageTransition>
   );
 }
+
+
 
 

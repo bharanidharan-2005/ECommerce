@@ -1,5 +1,5 @@
-/**
- * ProductDetailPage — immersive PDP matching the Bento design system.
+﻿/**
+ * ProductDetailPage â€” immersive PDP matching the Bento design system.
  *
  *  - Left: large rounded media frame with slow scale-on-hover zoom
  *  - Right: sticky purchase panel (price, rating, stock, qty, CTA)
@@ -159,7 +159,7 @@ export default function ProductDetailPage() {
                 ))}
               </div>
               <span className="text-sm font-medium text-slate-400">
-                {product.average_rating} · {product.reviews?.length ?? 0} reviews
+                {product.average_rating} Â· {product.reviews?.length ?? 0} reviews
               </span>
             </motion.div>
 
@@ -168,7 +168,7 @@ export default function ProductDetailPage() {
               {formatPrice(product.price, currency, rates)}
             </motion.p>
 
-            {/* Description — subtle gray per design spec */}
+            {/* Description â€” subtle gray per design spec */}
             <motion.p {...riseIn(0.25)} className="mt-4 whitespace-pre-line leading-relaxed text-slate-400">
               {product.description}
             </motion.p>
@@ -179,7 +179,7 @@ export default function ProductDetailPage() {
                 <>
                   <FiCheck className="text-emerald-500" />
                   <span className="text-emerald-600">In stock</span>
-                  <span className="text-slate-500">· ships in 48h</span>
+                  <span className="text-slate-500">Â· ships in 48h</span>
                 </>
               ) : (
                 <span className="text-red-500">Out of stock</span>
@@ -196,7 +196,7 @@ export default function ProductDetailPage() {
                       className="px-3.5 py-2.5 font-bold text-slate-400 transition hover:text-indigo-400"
                       aria-label="Decrease quantity"
                     >
-                      −
+                      âˆ’
                     </button>
                     <span className="w-8 text-center text-sm font-extrabold">{qty}</span>
                     <button
@@ -223,12 +223,12 @@ export default function ProductDetailPage() {
                     className="btn-primary flex-1 !py-3.5 !text-base"
                   >
                     <FiShoppingBag size={17} />
-                    Add to Cart · {formatPrice(product.price * qty, currency, rates)}
+                    Add to Cart Â· {formatPrice(product.price * qty, currency, rates)}
                   </button>
                   
                   <button
                     onClick={() => dispatch(toggleWishlist(product.id))}
-                    className={lex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border transition-all }
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border transition-all`}
                     aria-label="Toggle wishlist"
                   >
                     <FiHeart className={isWishlisted ? 'fill-current' : ''} size={22} />
@@ -372,4 +372,5 @@ export default function ProductDetailPage() {
     </PageTransition>
   );
 }
+
 

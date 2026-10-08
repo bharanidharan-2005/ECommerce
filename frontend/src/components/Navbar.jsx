@@ -31,7 +31,7 @@ export default function Navbar() {
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery.trim().length >= 2) {
         setIsSearchLoading(true);
-        api.get(/products/?search=&limit=5)
+        api.get(`/products/?search=${searchQuery}&limit=5`)
           .then(res => {
             setSearchResults(res.data?.results || res.data || []);
           })
