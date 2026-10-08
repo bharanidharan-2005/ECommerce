@@ -119,6 +119,7 @@ function CheckoutForm() {
         payment_method: method,
         upi_id: method.startsWith("upi_") ? upiId : "",
         items: items.map((i) => ({ product_id: i.id, quantity: i.qty })),
+        promo_code_str: coupon ? coupon.code : null,
       });
       return data;
     } catch (err) {
@@ -405,3 +406,4 @@ export default function CheckoutPage() {
     </PageTransition>
   );
 }
+
