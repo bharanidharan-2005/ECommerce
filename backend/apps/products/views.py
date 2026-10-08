@@ -2,7 +2,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from django.db.models import Avg
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters
 
 from .models import Category, Product, Review, Wishlist
 from .pagination import ProductPagination
@@ -11,6 +11,7 @@ from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer
 
 
 import django_filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ProductFilter(django_filters.FilterSet):
     min_price = django_filters.NumberFilter(field_name="price", lookup_expr='gte')
