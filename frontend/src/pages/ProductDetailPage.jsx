@@ -225,6 +225,14 @@ export default function ProductDetailPage() {
                     <FiShoppingBag size={17} />
                     Add to Cart · {formatPrice(product.price * qty, currency, rates)}
                   </button>
+                  
+                  <button
+                    onClick={() => dispatch(toggleWishlist(product.id))}
+                    className={lex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border transition-all }
+                    aria-label="Toggle wishlist"
+                  >
+                    <FiHeart className={isWishlisted ? 'fill-current' : ''} size={22} />
+                  </button>
                 </>
               ) : (
                 <button disabled className="btn-primary flex-1 !py-3.5 !text-base !bg-slate-800 !text-slate-500 !cursor-not-allowed">

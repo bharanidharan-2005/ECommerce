@@ -270,6 +270,60 @@ const CouponManager = () => {
 // --- ACCOUNT TAB COMPONENT ---
 
 
+
+// --- PASSWORD CHANGE COMPONENT ---
+const PasswordChangeForm = () => {
+  const [formData, setFormData] = useState({ old_password: "", new_password: "", confirm_password: "" });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    if (formData.new_password !== formData.confirm_password) {
+      toast.error("New passwords do not match.");
+      return;
+    }
+    setLoading(true);
+    try {
+      await api.put("/accounts/password/change/", { old_password: formData.old_password, new_password: formData.new_password });
+      toast.success("Password updated successfully!");
+      setFormData({ old_password: "", new_password: "", confirm_password: "" });
+    } catch (err) {
+      toast.error(err.response?.data?.old_password?.[0] || err.response?.data?.new_password?.[0] || "Failed to update password.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="card p-6 sm:p-8 mt-6">
+      <h2 className="text-lg font-black tracking-tight mb-6 flex items-center gap-2">
+        <FiShield className="text-indigo-500" /> Security
+      </h2>
+      <form onSubmit={handleSave} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="sm:col-span-2">
+          <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">Current Password</label>
+          <input type="password" name="old_password" required value={formData.old_password} onChange={handleChange} className="w-full rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors" />
+        </div>
+        <div>
+          <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">New Password</label>
+          <input type="password" name="new_password" required minLength={8} value={formData.new_password} onChange={handleChange} className="w-full rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors" />
+        </div>
+        <div>
+          <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">Confirm New Password</label>
+          <input type="password" name="confirm_password" required minLength={8} value={formData.confirm_password} onChange={handleChange} className="w-full rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors" />
+        </div>
+        <div className="sm:col-span-2 mt-2">
+          <button type="submit" disabled={loading} className="btn-primary w-full sm:w-auto">
+            {loading ? "Updating..." : "Update Password"}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
 const AccountTab = ({ user }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -356,6 +410,8 @@ const AccountTab = ({ user }) => {
         </div>
         <CouponManager />
       </div>
+
+      <PasswordChangeForm />
     </div>
   );
 };

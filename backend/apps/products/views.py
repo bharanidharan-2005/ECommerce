@@ -5,6 +5,7 @@ from django.db.models import Avg
 from rest_framework import permissions, viewsets
 
 from .models import Category, Product, Review, Wishlist
+from .pagination import ProductPagination
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, WishlistSerializer
 
 
@@ -44,9 +45,20 @@ class ProductViewSet(viewsets.ModelViewSet):
         .annotate(rating_avg=Avg("reviews__rating"))
     )
     serializer_class = ProductSerializer
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filterset_class = ProductFilter
+    pagination_class = ProductPagination
     search_fields = ("name", "description")
     ordering_fields = ("price", "created_at", "rating_avg")
+
+
+    def get_queryset(self):
+        from django.db.models import Q
+        qs = super().get_queryset()
+        search_term = self.request.query_params.get('search', None)
+        if search_term:
+            qs = qs.filter(Q(name__icontains=search_term) | Q(description__icontains=search_term)).distinct()
+        return qs
 
     def get_permissions(self):
         if self.action in ("list", "retrieve"):
@@ -99,6 +111,7 @@ from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Promotion
+from .pagination import ProductPagination
 from .serializers import PromotionSerializer
 
 @api_view(['GET'])

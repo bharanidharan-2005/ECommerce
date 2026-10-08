@@ -57,6 +57,14 @@ export default function OrderSuccessPage() {
   };
   const copy = COPY[method] ?? COPY.card;
 
+  // Estimated delivery logic (approx 5-7 days)
+  const deliveryDateStart = new Date();
+  deliveryDateStart.setDate(deliveryDateStart.getDate() + 5);
+  const deliveryDateEnd = new Date();
+  deliveryDateEnd.setDate(deliveryDateEnd.getDate() + 7);
+  const options = { weekday: 'short', month: 'short', day: 'numeric' };
+  const estDelivery = ${deliveryDateStart.toLocaleDateString(undefined, options)} - ;
+
   return (
     <PageTransition>
       <div className="mx-auto max-w-lg px-4 py-24 sm:px-6">
@@ -95,6 +103,11 @@ export default function OrderSuccessPage() {
             is confirmed{method === "card" ? "." : " — awaiting your action."}
           </p>
           <p className="mt-2 text-sm text-slate-500">{copy.detail}</p>
+          
+          <div className="mt-6 p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+            <h3 className="text-sm font-bold text-slate-300 mb-1">Estimated Delivery</h3>
+            <p className="text-lg font-extrabold text-indigo-400">{estDelivery}</p>
+          </div>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link to="/profile" className="btn-primary">Track My Order</Link>

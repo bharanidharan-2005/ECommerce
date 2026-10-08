@@ -44,8 +44,19 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const { items: products, loading } = useSelector(selectProducts);
   const [promotion, setPromotion] = useState(null);
+  const [flashSaleProducts, setFlashSaleProducts] = useState([]);
 
   useEffect(() => {
+    
+    // Fetch flash sale products
+    fetch('http://localhost:8010/api/products/?sale=true&limit=4')
+      .then(res => res.json())
+      .then(data => {
+        if(data.results) setFlashSaleProducts(data.results.slice(0, 4));
+        else setFlashSaleProducts(data.slice(0, 4));
+      })
+      .catch(err => console.error(err));
+
     fetch('http://localhost:8010/api/products/promotions/active/')
       .then(res => {
         if (!res.ok) throw new Error('No active promotion');
@@ -158,6 +169,32 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      
+      {/* Flash Sale */}
+      {flashSaleProducts.length > 0 && (
+        <section className="bg-slate-900/30 py-24 border-t border-white/5">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 flex items-end justify-between">
+              <div>
+                <h2 className="text-3xl font-black text-white sm:text-4xl flex items-center gap-3">
+                  <span className="text-red-500">Flash Sale</span> 
+                </h2>
+                <p className="mt-2 text-slate-400">Grab them before they're gone</p>
+              </div>
+              <Link to="/products?sale=true" className="hidden text-sm font-bold text-red-400 transition hover:text-red-300 sm:flex items-center gap-1">
+                View All Deals <FiArrowRight />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {flashSaleProducts.map(product => (
+                <BentoProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Trending Products */}
       <section className="bg-slate-900/30 py-24">

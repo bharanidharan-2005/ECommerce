@@ -154,3 +154,26 @@ class UpdateCouponView(APIView):
         
         return Response({"message": "Coupon updated successfully", "coupon": new_coupon})
 
+
+from .serializers import PasswordChangeSerializer
+
+class PasswordChangeView(generics.UpdateAPIView):
+    serializer_class = PasswordChangeSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=400)
+            
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            return Response({"detail": "Password updated successfully"})
+
+        return Response(serializer.errors, status=400)

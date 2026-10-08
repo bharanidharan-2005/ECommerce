@@ -23,6 +23,28 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+  const searchRef = useRef(null);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (searchQuery.trim().length >= 2) {
+        setIsSearchLoading(true);
+        api.get(/products/?search=&limit=5)
+          .then(res => {
+            setSearchResults(res.data?.results || res.data || []);
+          })
+          .catch(err => console.error(err))
+          .finally(() => setIsSearchLoading(false));
+      } else {
+        setSearchResults([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
+
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const currentCurrency = useSelector((state) => state.ui.currency);
@@ -90,7 +112,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg shadow-slate-900/20 border-b border-slate-800" : "bg-transparent border-b border-transparent"
+        isScrolled ? "bg-[#0B1020]/95 backdrop-blur-md shadow-lg shadow-black/20 border-b border-white/5" : "bg-transparent border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -331,35 +353,77 @@ export default function Navbar() {
       </nav>
 
       {/* Search Overlay */}
-      <AnimatePresence>
-        {isSearchOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute left-0 top-0 z-50 flex h-full w-full items-center bg-slate-900/95 backdrop-blur px-4 sm:px-6"
-          >
-            <form onSubmit={handleSearchSubmit} className="flex w-full max-w-4xl mx-auto items-center gap-4">
-              <FiSearch size={22} className="text-indigo-400" />
-              <input
-                type="text"
-                autoFocus
-                placeholder="Search products, categories and more..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent text-lg text-white placeholder-slate-500 focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={() => setIsSearchOpen(false)}
-                className="rounded-full p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition"
-              >
-                <FiX size={24} />
-              </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <AnimatePresence>
+          {isSearchOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute left-0 top-0 z-50 flex h-full w-full items-center bg-slate-900/95 backdrop-blur px-4 sm:px-6"
+            >
+              <div className="w-full max-w-4xl mx-auto relative" ref={searchRef}>
+                <form onSubmit={handleSearchSubmit} className="flex w-full items-center gap-4 relative z-10">
+                  <FiSearch size={22} className="text-indigo-400" />
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Search products, categories and more..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 bg-transparent text-lg text-white placeholder-slate-500 focus:outline-none"
+                  />
+                  {isSearchLoading && (
+                    <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchResults([]);
+                    }}
+                    className="rounded-full p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition"
+                  >
+                    <FiX size={24} />
+                  </button>
+                </form>
+
+                {searchResults.length > 0 && searchQuery.trim().length >= 2 && (
+                  <div className="absolute top-full left-0 w-full mt-4 bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl z-50">
+                    {searchResults.map((product) => (
+                      <Link 
+                        key={product.id}
+                        to={/products/}
+                        onClick={() => {
+                          setIsSearchOpen(false);
+                          setSearchResults([]);
+                          setSearchQuery("");
+                        }}
+                        className="flex items-center gap-4 p-4 hover:bg-slate-700 transition"
+                      >
+                        <div className="h-12 w-12 rounded-lg bg-slate-900 overflow-hidden shrink-0">
+                          {product.image && <img src={product.image} alt={product.name} className="w-full h-full object-cover" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-bold text-slate-200 truncate">{product.name}</h4>
+                          <p className="text-xs text-slate-400 truncate">{product.category?.name}</p>
+                        </div>
+                        <div className="font-bold text-sm text-indigo-400">
+                          
+                        </div>
+                      </Link>
+                    ))}
+                    <button 
+                      onClick={handleSearchSubmit}
+                      className="w-full p-3 text-center text-sm font-bold text-indigo-400 bg-slate-800/50 hover:bg-slate-700 transition border-t border-slate-700"
+                    >
+                      View all results
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       {/* Mobile Menu */}
       <AnimatePresence>

@@ -45,11 +45,15 @@ export default function BentoProductCard({ product }) {
         
         {/* Badges */}
         <div className="absolute left-4 top-4 flex flex-col gap-2">
-          {product.discount_percentage > 0 && (
-            <span className="rounded-full bg-rose-500/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
-              -{product.discount_percentage}% OFF
-            </span>
-          )}
+          {(() => {
+            const hasDiscount = product.original_price && product.original_price > product.price;
+            const discountPercent = hasDiscount ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : (product.discount_percentage || 0);
+            return discountPercent > 0 ? (
+              <span className="rounded-full bg-rose-500/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
+                -{discountPercent}% OFF
+              </span>
+            ) : null;
+          })()}
         </div>
 
         {/* Wishlist Button */}

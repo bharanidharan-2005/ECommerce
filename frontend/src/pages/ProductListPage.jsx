@@ -88,7 +88,28 @@ export default function ProductListPage() {
     return () => clearTimeout(t);
   }, [dispatch, page, search, category, ordering, minPrice, maxPrice, inStock, isSale]);
 
+
+  // Sync state back to URL
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    if (search) params.set("search", search); else params.delete("search");
+    if (category) {
+      const catObj = categoriesList.find(c => c.id === category);
+      if (catObj && catObj.slug) params.set("category", catObj.slug);
+      else params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+    if (ordering) params.set("sort", ordering); else params.delete("sort");
+    if (minPrice) params.set("minPrice", minPrice); else params.delete("minPrice");
+    if (maxPrice) params.set("maxPrice", maxPrice); else params.delete("maxPrice");
+    if (inStock) params.set("inStock", "true"); else params.delete("inStock");
+    
+    setSearchParams(params, { replace: true });
+  }, [search, category, ordering, minPrice, maxPrice, inStock]);
+
   const hasFilters = search || category || ordering || minPrice || maxPrice || inStock;
+
 
   const resetAnd = (setter) => (value) => {
     setter(value);
